@@ -14,5 +14,6 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - BACKEND_URL=http://api:8000
     depends_on:
       - api
