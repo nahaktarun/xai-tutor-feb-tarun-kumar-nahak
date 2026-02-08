@@ -392,18 +392,6 @@ export default function EmailClient() {
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="text-lg font-semibold text-zinc-900">Emails</div>
-                  <div className="hidden items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-500 md:flex">
-                    <SearchIcon className="text-zinc-400" />
-                    <input
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search..."
-                      className="w-[260px] bg-transparent outline-none placeholder:text-zinc-400"
-                    />
-                    <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-500">
-                      ⌘ K
-                    </span>
-                  </div>
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -693,49 +681,49 @@ export default function EmailClient() {
                         dangerouslySetInnerHTML={{ __html: composerHtml }}
                       />
 
-                      <div className="mt-4 flex items-center justify-between">
-                        <div className="flex items-center gap-1">
+                      <div className="mt-4 flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-0">
                           <button
                             type="button"
                             onClick={createEmail}
-                            className="rounded-l-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800"
+                            className="rounded-l-md bg-zinc-900 px-5 py-2 text-sm font-semibold text-white hover:bg-zinc-800 transition-colors"
                           >
                             Send Now
                           </button>
                           <button
                             type="button"
-                            className="rounded-r-lg border-l border-zinc-700 bg-zinc-900 px-3 py-2 text-white hover:bg-zinc-800"
+                            className="rounded-r-md bg-zinc-900 px-3 py-2 text-white hover:bg-zinc-800 transition-colors border-l border-zinc-800"
                             aria-label="Schedule"
                           >
                             <CaretDownIcon />
                           </button>
                         </div>
 
-                        <div className="flex items-center gap-2 text-zinc-400">
+                        <div className="flex items-center gap-1 text-zinc-400">
                           <button
                             type="button"
-                            className="rounded-lg p-2 hover:bg-zinc-100 hover:text-zinc-700"
+                            className="rounded-md p-2 hover:bg-zinc-100 hover:text-zinc-700 transition-colors"
                             aria-label="Attach"
                           >
                             <PaperclipIcon />
                           </button>
                           <button
                             type="button"
-                            className="rounded-lg p-2 hover:bg-zinc-100 hover:text-zinc-700"
+                            className="rounded-md p-2 hover:bg-zinc-100 hover:text-zinc-700 transition-colors"
                             aria-label="Emoji"
                           >
                             <SmileIcon />
                           </button>
                           <button
                             type="button"
-                            className="rounded-lg p-2 hover:bg-zinc-100 hover:text-zinc-700"
+                            className="rounded-md p-2 hover:bg-zinc-100 hover:text-zinc-700 transition-colors"
                             aria-label="Template"
                           >
                             <TemplateIcon />
                           </button>
                           <button
                             type="button"
-                            className="rounded-lg p-2 hover:bg-zinc-100 hover:text-zinc-700"
+                            className="rounded-md p-2 hover:bg-zinc-100 hover:text-zinc-700 transition-colors"
                             aria-label="More"
                           >
                             <DotsIcon />
