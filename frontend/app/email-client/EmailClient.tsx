@@ -243,28 +243,21 @@ export default function EmailClient() {
                 </button>
               </div>
 
-              <div
-                className={
-                  "mt-4 flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2 " +
-                  (sidebarCollapsed ? "justify-center" : "")
-                }
-              >
-                <SearchIcon className="text-zinc-400" size={18} />
-                {!sidebarCollapsed && (
-                  <>
-                    <input
-                      id="global-search"
-                      value={headerQuery}
-                      onChange={(e) => setHeaderQuery(e.target.value)}
-                      placeholder="Search..."
-                      className="w-full bg-transparent text-sm text-zinc-700 outline-none placeholder:text-zinc-400"
-                    />
-                    <span className="flex h-6 items-center rounded-lg bg-zinc-100 px-2 text-[10px] font-semibold text-zinc-500">
-                      ⌘ K
-                    </span>
-                  </>
-                )}
-              </div>
+              {!sidebarCollapsed && (
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2">
+                  <SearchIcon className="text-zinc-400" size={18} />
+                  <input
+                    id="global-search"
+                    value={headerQuery}
+                    onChange={(e) => setHeaderQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="w-full bg-transparent text-sm text-zinc-700 outline-none placeholder:text-zinc-400"
+                  />
+                  <span className="flex h-6 items-center whitespace-nowrap rounded-lg bg-zinc-100 px-2 text-[10px] font-semibold text-zinc-500">
+                    ⌘ K
+                  </span>
+                </div>
+              )}
 
               <div className="mt-5 flex-1 overflow-auto pr-1">
                 <div className="space-y-5 pb-4">
@@ -701,6 +694,23 @@ export default function EmailClient() {
                       />
 
                       <div className="mt-4 flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={createEmail}
+                            className="rounded-l-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800"
+                          >
+                            Send Now
+                          </button>
+                          <button
+                            type="button"
+                            className="rounded-r-lg border-l border-zinc-700 bg-zinc-900 px-3 py-2 text-white hover:bg-zinc-800"
+                            aria-label="Schedule"
+                          >
+                            <CaretDownIcon />
+                          </button>
+                        </div>
+
                         <div className="flex items-center gap-2 text-zinc-400">
                           <button
                             type="button"
@@ -729,23 +739,6 @@ export default function EmailClient() {
                             aria-label="More"
                           >
                             <DotsIcon />
-                          </button>
-                        </div>
-
-                        <div className="flex items-center">
-                          <button
-                            type="button"
-                            onClick={createEmail}
-                            className="rounded-l-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800"
-                          >
-                            Send Now
-                          </button>
-                          <button
-                            type="button"
-                            className="rounded-r-xl bg-zinc-900 px-3 py-2 text-white hover:bg-zinc-800"
-                            aria-label="Schedule"
-                          >
-                            <CaretDownIcon />
                           </button>
                         </div>
                       </div>
