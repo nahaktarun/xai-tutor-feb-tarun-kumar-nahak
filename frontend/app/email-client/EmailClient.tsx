@@ -4,16 +4,27 @@ import * as React from "react";
 
 import {
   ArchiveIcon,
+  BellIcon,
   CaretDownIcon,
+  CalendarIcon,
   CheckIcon,
   ChevronLeftRightIcon,
+  ContactsIcon,
+  DashboardIcon,
   DotsIcon,
   ForwardIcon,
+  HelpIcon,
+  IntegrationIcon,
+  MailIcon,
   PaperclipIcon,
+  ProductIcon,
   SearchIcon,
+  SettingsIcon,
   SmileIcon,
   StarIcon,
+  TasksIcon,
   TemplateIcon,
+  WidgetsIcon,
 } from "./icons";
 import type { Email } from "./types";
 import { backendStaticOrigin, formatReceivedAt, initials } from "./utils";
@@ -40,6 +51,41 @@ function Pill({ active, children }: { active?: boolean; children: React.ReactNod
       }
     >
       {children}
+    </button>
+  );
+}
+
+function SidebarItem({
+  icon,
+  label,
+  active,
+  collapsed,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  active?: boolean;
+  collapsed?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      className={
+        "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm transition-colors " +
+        (active
+          ? "bg-zinc-100 text-zinc-900"
+          : "text-zinc-600 hover:bg-zinc-100") +
+        (collapsed ? " justify-center" : "")
+      }
+    >
+      <span
+        className={
+          "inline-flex h-8 w-8 items-center justify-center rounded-lg " +
+          (active ? "text-zinc-900" : "text-zinc-500")
+        }
+      >
+        {icon}
+      </span>
+      {!collapsed && <span className="truncate">{label}</span>}
     </button>
   );
 }
@@ -164,9 +210,9 @@ export default function EmailClient() {
   const unreadCount = emails.filter((e) => !e.is_read && !e.is_archived).length;
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] p-6">
-      <div className="mx-auto max-w-[1180px] overflow-hidden rounded-2xl bg-white shadow-[0_24px_70px_rgba(15,23,42,0.10)]">
-        <div className="flex h-[780px]">
+   <div className="h-screen w-screen bg-[#f3f4f6]">
+      <div className="h-full w-full overflow-hidden bg-white">
+        <div className="flex h-full">
           {/* Sidebar */}
           <aside
             className={
@@ -181,21 +227,29 @@ export default function EmailClient() {
                     <StarIcon className="text-white" />
                   </div>
                   {!sidebarCollapsed && (
-                    <div className="text-sm font-semibold text-zinc-900">Cusana</div>
+                    <div className="flex items-center gap-1 text-sm font-semibold text-zinc-900">
+                      Cusana
+                      <CaretDownIcon size={14} className="text-zinc-400" />
+                    </div>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => setSidebarCollapsed((v) => !v)}
-                  className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-100"
+                  className="rounded-xl border border-zinc-200 bg-white p-2 text-zinc-500 hover:bg-zinc-50"
                   aria-label="Collapse sidebar"
                 >
                   <ChevronLeftRightIcon />
                 </button>
               </div>
 
-              <div className="mt-4 flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2">
-                <SearchIcon className="text-zinc-400" />
+              <div
+                className={
+                  "mt-4 flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2 " +
+                  (sidebarCollapsed ? "justify-center" : "")
+                }
+              >
+                <SearchIcon className="text-zinc-400" size={18} />
                 {!sidebarCollapsed && (
                   <>
                     <input
@@ -205,37 +259,41 @@ export default function EmailClient() {
                       placeholder="Search..."
                       className="w-full bg-transparent text-sm text-zinc-700 outline-none placeholder:text-zinc-400"
                     />
-                    <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-500">
+                    <span className="flex h-6 items-center rounded-lg bg-zinc-100 px-2 text-[10px] font-semibold text-zinc-500">
                       ⌘ K
                     </span>
                   </>
                 )}
               </div>
 
-              <div className="mt-5 space-y-5 overflow-hidden">
+              <div className="mt-5 flex-1 overflow-auto pr-1">
+                <div className="space-y-5 pb-4">
                 <nav className="space-y-1">
-                  <div className="px-2 text-[10px] font-semibold tracking-wider text-zinc-400">
-                    {!sidebarCollapsed ? "" : ""}
-                  </div>
-                  {[
-                    "Dashboard",
-                    "Notifications",
-                    "Tasks",
-                    "Calendar",
-                    "Widgets",
-                  ].map((label) => (
-                    <button
-                      key={label}
-                      type="button"
-                      className={
-                        "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-zinc-600 hover:bg-zinc-100 " +
-                        (sidebarCollapsed ? "justify-center" : "")
-                      }
-                    >
-                      <span className="h-2 w-2 rounded-full bg-zinc-300" />
-                      {!sidebarCollapsed && <span>{label}</span>}
-                    </button>
-                  ))}
+                  <SidebarItem
+                    icon={<DashboardIcon />}
+                    label="Dashboard"
+                    collapsed={sidebarCollapsed}
+                  />
+                  <SidebarItem
+                    icon={<BellIcon />}
+                    label="Notifications"
+                    collapsed={sidebarCollapsed}
+                  />
+                  <SidebarItem
+                    icon={<TasksIcon />}
+                    label="Tasks"
+                    collapsed={sidebarCollapsed}
+                  />
+                  <SidebarItem
+                    icon={<CalendarIcon />}
+                    label="Calendar"
+                    collapsed={sidebarCollapsed}
+                  />
+                  <SidebarItem
+                    icon={<WidgetsIcon />}
+                    label="Widgets"
+                    collapsed={sidebarCollapsed}
+                  />
                 </nav>
 
                 <div>
@@ -245,32 +303,27 @@ export default function EmailClient() {
                     </div>
                   )}
                   <div className="space-y-1">
-                    {[
-                      { label: "Product", active: false },
-                      { label: "Emails", active: true },
-                      { label: "Integration", active: false },
-                      { label: "Contacts", active: false },
-                    ].map((item) => (
-                      <button
-                        key={item.label}
-                        type="button"
-                        className={
-                          "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm " +
-                          (item.active
-                            ? "bg-zinc-100 text-zinc-900"
-                            : "text-zinc-600 hover:bg-zinc-100") +
-                          (sidebarCollapsed ? " justify-center" : "")
-                        }
-                      >
-                        <span
-                          className={
-                            "h-2 w-2 rounded-full " +
-                            (item.active ? "bg-orange-500" : "bg-zinc-300")
-                          }
-                        />
-                        {!sidebarCollapsed && <span>{item.label}</span>}
-                      </button>
-                    ))}
+                    <SidebarItem
+                      icon={<ProductIcon />}
+                      label="Product"
+                      collapsed={sidebarCollapsed}
+                    />
+                    <SidebarItem
+                      icon={<MailIcon />}
+                      label="Emails"
+                      active
+                      collapsed={sidebarCollapsed}
+                    />
+                    <SidebarItem
+                      icon={<IntegrationIcon />}
+                      label="Integration"
+                      collapsed={sidebarCollapsed}
+                    />
+                    <SidebarItem
+                      icon={<ContactsIcon />}
+                      label="Contacts"
+                      collapsed={sidebarCollapsed}
+                    />
                   </div>
                 </div>
 
@@ -294,29 +347,27 @@ export default function EmailClient() {
                           (sidebarCollapsed ? "justify-center" : "")
                         }
                       >
-                        <span className={`h-2 w-2 rounded-full ${item.color}`} />
+                        <span className={`h-2.5 w-2.5 rounded-[3px] ${item.color}`} />
                         {!sidebarCollapsed && <span>{item.label}</span>}
                       </button>
                     ))}
                   </div>
                 </div>
+                </div>
               </div>
 
               <div className="mt-auto pt-4">
                 <div className="space-y-1">
-                  {["Settings", "Help & Center"].map((label) => (
-                    <button
-                      key={label}
-                      type="button"
-                      className={
-                        "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-zinc-600 hover:bg-zinc-100 " +
-                        (sidebarCollapsed ? "justify-center" : "")
-                      }
-                    >
-                      <span className="h-2 w-2 rounded-full bg-zinc-300" />
-                      {!sidebarCollapsed && <span>{label}</span>}
-                    </button>
-                  ))}
+                  <SidebarItem
+                    icon={<SettingsIcon />}
+                    label="Settings"
+                    collapsed={sidebarCollapsed}
+                  />
+                  <SidebarItem
+                    icon={<HelpIcon />}
+                    label="Help & Center"
+                    collapsed={sidebarCollapsed}
+                  />
                 </div>
 
                 <div className="mt-4 rounded-2xl border border-zinc-200 bg-white p-3">
